@@ -9,19 +9,23 @@ type Props = {
   handleCurrencyChange: (currency: Currency) => void;
 };
 
-const CurrencyButtons: React.FC<Props> = ({ currencies, selectedCurrency, handleCurrencyChange }) => {
+const CurrencyButtons: React.FC<Props> = ({
+  currencies,
+  selectedCurrency,
+  handleCurrencyChange,
+}) => {
   return (
-    <>
-      <div className="button-currency">
-        {currencies.map((currency) => (
-          <button key={currency.symbol} onClick={() => handleCurrencyChange(currency)}>
-            {currency.symbol}
-          </button>
-        ))}
-      </div>
-    </>
+    <div className="button-currency">
+      {currencies.map((currency) => (
+        <button
+          key={currency.symbol}
+          onClick={() => handleCurrencyChange(currency)}
+        >
+          {currency.symbol}
+        </button>
+      ))}
+    </div>
   );
 };
 
 export default CurrencyButtons;
-

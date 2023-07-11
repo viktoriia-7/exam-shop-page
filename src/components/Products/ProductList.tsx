@@ -4,12 +4,10 @@ import ProductListItem from "./ProductListItem";
 import productsArray from "utils/productsArray";
 import CurrencyButtons from "components/Currency/CurrencyButtons";
 
-
 type Currency = {
   symbol: string;
   exchangeRate: number;
 };
-
 
 const ProductList: React.FC = () => {
   const [selectedCurrency, setSelectedCurrency] = useState<Currency>({
@@ -17,30 +15,21 @@ const ProductList: React.FC = () => {
     exchangeRate: 1,
   });
 
-
   const [totalPrice, setTotalPrice] = useState<number>(0);
-
 
   const handleCurrencyChange = (currency: Currency) => {
     setSelectedCurrency(currency);
-    setTotalPrice(0);
   };
-
 
   const handleBuy = (price: number) => {
     const convertedPrice = price / selectedCurrency.exchangeRate;
-    const newTotalPrice = totalPrice + convertedPrice;
-    setTotalPrice(newTotalPrice);
+    setTotalPrice((prevTotalPrice) => prevTotalPrice + convertedPrice);
   };
-
 
   const getConvertedPrice = (price: number): string => {
     const convertedPrice = price * selectedCurrency.exchangeRate;
-
-
     return `${selectedCurrency.symbol} ${convertedPrice.toFixed(2)}`;
   };
-
 
   const currencies: Currency[] = [
     { symbol: "EUR", exchangeRate: 1 },
@@ -52,7 +41,6 @@ const ProductList: React.FC = () => {
     <Container>
       <h1>Our shop page</h1>
 
-
       <CurrencyButtons
         currencies={currencies}
         selectedCurrency={selectedCurrency}
@@ -61,7 +49,6 @@ const ProductList: React.FC = () => {
       <Grid container textAlign={"center"}>
         {productsArray.map(({ id, title, description, price }) => {
           const convertedPrice = getConvertedPrice(price);
-
 
           return (
             <Grid item key={id} xs={12} sm={6} md={4}>
